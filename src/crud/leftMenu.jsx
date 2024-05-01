@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const containerStyle = {
     backgroundColor: 'white',
     color: 'black',
@@ -37,6 +39,11 @@ const containerStyle = {
     alignItems: 'center',
     padding: '0.5rem 1rem',
     transition: 'background-color 0.3s ease',
+    cursor: 'pointer', // Opcional: cambia el cursor a una mano para indicar que es un elemento interactivo.
+  ':hover': {
+    backgroundColor: '#1E3A8A', // Color de fondo cuando el ratón pasa por encima.
+    color: 'white', // Cambia el color del texto al pasar el ratón.
+  }
   };
   
   const listLinkStyle = {
@@ -53,54 +60,45 @@ const containerStyle = {
   };
   
   const LeftMenu = () => {
+    const [activeIndex, setActiveIndex] = useState(null);  // Estado para índice activo
+
+    const handleMouseEnter = index => setActiveIndex(index);  // Función para manejar mouse enter
+    const handleMouseLeave = () => setActiveIndex(null);      // Función para resetear el índice al salir
+  
+    const listItemStyle = index => ({
+      display: 'flex',
+      alignItems: 'center',
+      padding: '0.5rem 1rem',
+      transition: 'background-color 0.3s ease',
+      backgroundColor: activeIndex === index ? '#1E3A8A' : 'transparent',  // Cambia color si es ítem activo
+      color: activeIndex === index ? 'white' : 'black',  // Cambia color de texto si es ítem activo
+    });
+  
+    const listLinkStyle = {
+      color: 'inherit',  // Hereda color del elemento padre
+      textDecoration: 'none',
+    };
+  
     return (
-      <div style={containerStyle}>
-        <div style={headerStyle}>
-          <h1 className="text-lg font-bold">Take[A]Net</h1>
+      <div style={{ backgroundColor: 'white', color: 'black', minHeight: '100vh' }}>
+        <div style={{ textAlign: 'center', padding: '1rem', color: '#1E3A8A' }}>
+          <h1>Take[A]Net</h1>
         </div>
-        <div style={profileContainerStyle}>
-          <img src="https://placehold.co/120x120" alt="Profile Picture" style={profileImageStyle} />
-          <h2 className="font-semibold">Nombre Apellidos</h2>
+        <div style={{ padding: '1rem', textAlign: 'center' }}>
+          <img src="https://placehold.co/120x120" alt="Profile Picture" style={{ width: '120px', height: '120px', borderRadius: '50%', margin: 'auto', marginBottom: '0.5rem' }} />
+          <h2>Nombre Apellidos</h2>
           <p className="text-sm mb-4">Cargo</p>
-          <button style={buttonStyle}>Editar perfil</button>
+          <button style={{ backgroundColor: 'white', color: '#1E3A8A', padding: '0.5rem 1rem', borderRadius: '10px', borderColor: '#1E3A8A', fontSize: '0.875rem' }}>Editar perfil</button>
         </div>
         <div style={{ marginTop: '1rem' }}>
           <ul className="space-y-2">
-            <li style={listItemStyle}>
-              <a href="#" style={listLinkStyle}>
-                <span className="mr-2">👥</span> Clientes
-              </a>
-            </li>
-            <li style={listItemStyle}>
-              <a href="#" style={listLinkStyle}>
-                <span className="mr-2">📁</span> Proyectos
-              </a>
-            </li>
-            <li style={listItemStyle}>
-              <a href="#" style={listLinkStyle}>
-                <span className="mr-2">🗺️</span> Rutas
-              </a>
-            </li>
-            <li style={listItemStyle}>
-              <a href="#" style={listLinkStyle}>
-                <span className="mr-2">👨‍💼</span> Colaboradores
-              </a>
-            </li>
-            <li style={listItemStyle}>
-              <a href="#" style={listLinkStyle}>
-                <span className="mr-2">🔐</span> Permisos
-              </a>
-            </li>
-            <li style={listItemStyle}>
-              <a href="#" style={listLinkStyle}>
-                <span className="mr-2">👤</span> Usuarios
-              </a>
-            </li>
-            <li style={listItemStyle}>
-              <a href="#" style={listLinkStyle}>
-                <span className="mr-2">➕</span> Nuevo
-              </a>
-            </li>
+            {['Clientes', 'Proyectos', 'Rutas', 'Colaboradores', 'Permisos', 'Usuarios', 'Nuevo'].map((item, index) => (
+              <li key={index} style={listItemStyle(index)} onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={handleMouseLeave}>
+                <a href="#" style={listLinkStyle}>
+                  <span className="mr-2">👥</span> {item}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
