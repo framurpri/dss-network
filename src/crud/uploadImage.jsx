@@ -41,7 +41,7 @@ const UploadImage = ({user}) => {
     fileInputRef.current.click();
   };
 
-  const imageUrl = `${user.user.img_file_dir}${user.user.img_file}`;
+  const imageUrl = `https://evaluacion.sierpes48.es/${user.user.img_file_dir}${user.user.img_file}`;
 
   console.log(imageUrl)
 
@@ -52,6 +52,8 @@ const UploadImage = ({user}) => {
         src={imageUrl}
         alt="Imagen creada"
         onClick={handleLinkClick} 
+        style={{height: '120px',
+        width: '120px',}}
       />
       ):(
       <img
@@ -77,7 +79,6 @@ const UploadImage = ({user}) => {
     height: '120px',
     cursor: 'pointer',
     width: '120px',
-    backgroundColor: 'gray',
     borderRadius: '50%',
     display: 'flex',
     justifyContent: 'center',
