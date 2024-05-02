@@ -53,7 +53,7 @@ const UploadImage = ({user}) => {
         alt="Imagen creada"
         onClick={handleLinkClick} 
         style={{height: '120px',
-        width: '120px',}}
+        width: '120px', borderRadius: '50%'}}
       />
       ):(
       <img
